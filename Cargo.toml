@@ -1,0 +1,19 @@
+[package]
+name = "axum_seaorm_postgres"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+members = [".", "entity", "migration"]
+
+[dependencies]
+entity = { path = "entity" }
+migration = { path = "migration" } # depends on your needs
+axum = "0.7.7"
+dotenvy = "0.15.7"
+dotenvy_macro = "0.15.7"
+sea-orm = { version = "1.1.1", features = [
+    "runtime-tokio-rustls",
+    "sqlx-postgres",
+] }
+tokio = { version = "1.41.1", features = ["full"] }
