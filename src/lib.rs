@@ -10,5 +10,5 @@ pub async fn run_app(db_url: &str) {
 
     Migrator::up(&db, None).await.unwrap();
 
-    axum::serve(listener, router_app()).await.unwrap();
+    axum::serve(listener, router_app(db)).await.unwrap();
 }
