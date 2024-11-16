@@ -11,9 +11,13 @@ impl MigrationTrait for Migration {
                 Table::create()
                     .table(CakeFilling::Table)
                     .if_not_exists()
-                    .col(pk_auto(CakeFilling::Id))
                     .col(integer(CakeFilling::CakeId))
                     .col(integer(CakeFilling::FillingId))
+                    .primary_key(
+                        Index::create()
+                            .col(CakeFilling::CakeId)
+                            .col(CakeFilling::FillingId),
+                    )
                     .to_owned(),
             )
             .await
@@ -29,7 +33,6 @@ impl MigrationTrait for Migration {
 #[derive(DeriveIden)]
 enum CakeFilling {
     Table,
-    Id,
     CakeId,
     FillingId,
 }
