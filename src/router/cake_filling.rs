@@ -11,7 +11,6 @@ pub struct CakeFilling {
 
 #[derive(Serialize)]
 pub struct ResCakeFilling {
-    id: i32,
     cake_id: i32,
     filling_id: i32,
 }
@@ -28,7 +27,6 @@ pub async fn cake_filling_save(
 
     let res = cake_filling.save(&db).await.unwrap();
     Json(ResCakeFilling {
-        id: res.id.unwrap(),
         cake_id: res.cake_id.unwrap(),
         filling_id: res.filling_id.unwrap(),
     })

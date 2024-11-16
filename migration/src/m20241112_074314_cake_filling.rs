@@ -1,5 +1,7 @@
 use sea_orm_migration::{prelude::*, schema::*};
 
+use crate::{m20241112_074142_cake::Cake, m20241112_074225_filling::Filling};
+
 #[derive(DeriveMigrationName)]
 pub struct Migration;
 
@@ -17,6 +19,20 @@ impl MigrationTrait for Migration {
                         Index::create()
                             .col(CakeFilling::CakeId)
                             .col(CakeFilling::FillingId),
+                    )
+                    .foreign_key(
+                        ForeignKey::create()
+                            .name("fk_cake_filling_cakeId")
+                            .from(CakeFilling::Table, CakeFilling::CakeId)
+                            .to(Cake::Table, Cake::Id)
+                            .on_delete(ForeignKeyAction::Cascade),
+                    )
+                    .foreign_key(
+                        ForeignKey::create()
+                            .name("fk_cake_fillilng_filling_id")
+                            .from(CakeFilling::Table, CakeFilling::FillingId)
+                            .to(Filling::Table, Filling::Id)
+                            .on_delete(ForeignKeyAction::Cascade),
                     )
                     .to_owned(),
             )

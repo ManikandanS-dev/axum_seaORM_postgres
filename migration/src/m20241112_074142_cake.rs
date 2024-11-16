@@ -28,7 +28,7 @@ impl MigrationTrait for Migration {
 }
 
 #[derive(DeriveIden)]
-enum Cake {
+pub enum Cake {
     Table,
     Id,
     Name,

@@ -12,6 +12,35 @@ pub struct Model {
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
-pub enum Relation {}
+pub enum Relation {
+    #[sea_orm(
+        belongs_to = "super::cake::Entity",
+        from = "Column::CakeId",
+        to = "super::cake::Column::Id",
+        on_update = "NoAction",
+        on_delete = "Cascade"
+    )]
+    Cake,
+    #[sea_orm(
+        belongs_to = "super::filling::Entity",
+        from = "Column::FillingId",
+        to = "super::filling::Column::Id",
+        on_update = "NoAction",
+        on_delete = "Cascade"
+    )]
+    Filling,
+}
+
+impl Related<super::cake::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Cake.def()
+    }
+}
+
+impl Related<super::filling::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Filling.def()
+    }
+}
 
 impl ActiveModelBehavior for ActiveModel {}
